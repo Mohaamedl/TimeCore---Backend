@@ -1,3 +1,4 @@
+
 # Coding Standards
 
 This document outlines the coding standards and guidelines to be followed when developing in this project. These practices ensure consistency, maintainability, and readability across the codebase.
@@ -6,37 +7,37 @@ This document outlines the coding standards and guidelines to be followed when d
 
 ### 1. Variable and Method Names
 
-- **snake_case** is the preferred naming convention for variables and methods.
+- **camelCase** is the preferred naming convention for variables and methods in Java.
 - Example:
-    - Correct: `user_name`, `calculate_total_price()`
-    - Incorrect: `userName`, `calculateTotalPrice()`
+  - Correct: `userName`, `calculateTotalPrice()`
+  - Incorrect: `user_name`, `calculate_total_price()`
 
 ### 2. Constants
 
 - Constants should be written in **UPPER_SNAKE_CASE**.
 - Example:
-    - Correct: `MAX_USERS`, `API_URL`
-    - Incorrect: `maxUsers`, `apiUrl`
+  - Correct: `MAX_USERS`, `API_URL`
+  - Incorrect: `maxUsers`, `apiUrl`
 
 ### 3. Class and Interface Names
 
 - Use **CamelCase** for class and interface names, starting with an uppercase letter.
 - Example:
-    - Correct: `UserManager`, `ProductService`
-    - Incorrect: `user_manager`, `product_service`
+  - Correct: `UserManager`, `ProductService`
+  - Incorrect: `user_manager`, `product_service`
 
 ## Indentation and Spacing
 
 ### 1. Indentation
 
 - **Tabs with 4 spaces** are the preferred indentation style.
-    - If your editor uses spaces for indentation, set it to 4 spaces per indentation level.
-    - If your editor uses tabs, configure it to display as 4 spaces.
+  - If your editor uses spaces for indentation, set it to 4 spaces per indentation level.
+  - If your editor uses tabs, configure it to display as 4 spaces.
 - This ensures consistency across different editors and development environments.
 
 ### 2. Line Length
 
-- Limit line length to **80 characters**. This improves readability, especially in terminal environments.
+- Recommended: limit line length to **80 characters**. This improves readability, especially in terminal environments.
 
 ### 3. Blank Lines
 
@@ -49,17 +50,17 @@ This document outlines the coding standards and guidelines to be followed when d
 - Group imports into standard library imports, third-party library imports, and project-specific imports.
 - Ensure that imports are ordered alphabetically within each group.
 - In Java, always use the following order:
-    1. Java standard libraries (e.g., `java.util.*`)
-    2. External libraries (e.g., `org.springframework.*`)
-    3. Project-specific imports (e.g., `com.myproject.model.*`)
+  1. Java standard libraries (e.g., `java.util.*`)
+  2. External libraries (e.g., `org.springframework.*`)
+  3. Project-specific imports (e.g., `com.myproject.model.*`)
 
 ### 2. File Structure
 
 - Organize files by their function within the project:
-    - `controllers/` for handling requests
-    - `models/` for data models
-    - `services/` for business logic
-    - `utils/` for utility functions
+  - `controllers/` for handling requests
+  - `models/` for data models
+  - `services/` for business logic
+  - `utils/` for utility functions
 
 ## Comments and Documentation
 
@@ -79,3 +80,4 @@ This document outlines the coding standards and guidelines to be followed when d
   public double calculateTotalPrice(double price, int quantity) {
       return price * quantity;
   }
+  ```

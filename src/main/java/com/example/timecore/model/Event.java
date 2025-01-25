@@ -68,6 +68,11 @@ public class Event {
         this.uid = uid;
     }
 
+    /**
+     * Converts the event to an ICS format string.
+     *
+     * @return the event in ICS format (String)
+     */
     public String toICSFormat() {
         return "BEGIN:VEVENT\n" +
                 "SUMMARY:" + summary + "\n" +
@@ -76,7 +81,7 @@ public class Event {
                 "LOCATION:" + location + "\n" +
                 "DESCRIPTION:" + description + "\n" +
                 "UID:" + uid + "\n" +
-                "END:VEVENT";
+                "END:VEVENT\n";
     }
 
     @Override
@@ -91,4 +96,3 @@ public class Event {
                 '}';
     }
 }
-
