@@ -74,7 +74,7 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> login (@RequestBody User user) throws Exception {
 
-        String username  = user.getFullname();
+        String username  = user.getEmail();
         String password =  user.getPassword();
 
         Authentication auth = authenticate(username, password);
@@ -88,7 +88,7 @@ public class AuthController {
         AuthResponse res  = new AuthResponse();
         res.setJwt(jwt);
         res.setStatus(true);
-        res.setMessage("Register success");
+        res.setMessage("Login success");
 
 
 
@@ -98,10 +98,16 @@ public class AuthController {
     private Authentication authenticate(String username, String password) {
 
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-        if (userDetails!= null)
+
+        if (userDetails== null)
         {
             throw new BadCredentialsException("Invalid username");
         }
+        if (!password.equals(userDetails.getPassword()))
+        {
+            throw new BadCredentialsException("Invalid password");
+        }
+        return new UsernamePasswordAuthenticationToken(userDetails,password,userDetails.getAuthorities());
 
 
     }
