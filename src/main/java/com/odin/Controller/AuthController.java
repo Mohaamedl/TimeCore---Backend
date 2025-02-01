@@ -1,10 +1,14 @@
 package com.odin.Controller;
 
+import com.odin.Model.TwoFactorOTP;
 import com.odin.Model.User;
 import com.odin.Repository.UserRepository;
 import com.odin.Response.AuthResponse;
 import com.odin.Service.CustomUserDetailsService;
+import com.odin.Service.EmailService;
+import com.odin.Service.TwoFactorOTPService;
 import com.odin.config.JwtProvider;
+import com.odin.util.OtpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -28,7 +29,11 @@ public class AuthController {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
+    @Autowired
+    private TwoFactorOTPService twoFactorOTPService;
 
+    @Autowired
+    private EmailService emailService;
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> register (@RequestBody User user) throws Exception {
         User newUser =  new User();
@@ -83,7 +88,32 @@ public class AuthController {
 
         String jwt = JwtProvider.generateToken(auth);
 
+        User authUser = userRepository.findByEmail(username);
 
+        if (user.getTwoFactorAuth().IsEnabled()) {
+            AuthResponse res = new AuthResponse();
+            res.setMessage("TFA is enabled");
+            res.setTwoFactorAuthEnabled(true);
+            String otp = OtpUtils.generateOtp();
+
+            TwoFactorOTP oldTwoFactorOTP = twoFactorOTPService.findByUser(authUser.getId());
+            if (oldTwoFactorOTP != null){
+                twoFactorOTPService.deleteTwoFactorOtp(oldTwoFactorOTP);
+            }
+
+            TwoFactorOTP newTwoFactorOTP =  twoFactorOTPService.createTwoFactorOtp(authUser,otp,jwt);
+            /*
+            * TODO:
+            *  Email service to send code for TFA
+            * */
+            emailService.sendVerificationOtpEmail(username, otp);
+
+
+
+            res.setSession(newTwoFactorOTP.getId());
+            return new ResponseEntity<>(res, HttpStatus.ACCEPTED);
+
+        }
 
         AuthResponse res  = new AuthResponse();
         res.setJwt(jwt);
@@ -110,6 +140,20 @@ public class AuthController {
         return new UsernamePasswordAuthenticationToken(userDetails,password,userDetails.getAuthorities());
 
 
+    }
+    public ResponseEntity<AuthResponse> verifySignInOtp(
+            @PathVariable String otp,
+            @RequestParam String id) {
+        TwoFactorOTP twoFactorOTP = twoFactorOTPService.findById(id);
+        if (twoFactorOTPService.verifyTwoFactorOtp(twoFactorOTP, otp)){
+            AuthResponse res = new AuthResponse();
+            res.setMessage("Two factor authentication verified");
+            res.setTwoFactorAuthEnabled(true);
+            res.setJwt(twoFactorOTP.getJwt());
+
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        }
+        throw new BadCredentialsException("Invalid OTP");
     }
 
 

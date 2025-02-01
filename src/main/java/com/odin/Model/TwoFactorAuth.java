@@ -18,7 +18,7 @@ public class TwoFactorAuth {
     private VerificationType send_to = VerificationType.EMAIL;
 
     @JsonProperty
-    private boolean is_enabled;
+    private boolean enabled;
     /**
      * TODO
      * Verify whys just default values for is_enable and send_to appear
@@ -27,8 +27,8 @@ public class TwoFactorAuth {
      */
 
 
-    public void setIs_enabled(boolean is_enabled) {
-        this.is_enabled = is_enabled;
+    public void setIs_enabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void setSend_to(VerificationType send_to) {
@@ -39,8 +39,8 @@ public class TwoFactorAuth {
         return send_to;
     }
 
-    public boolean isIs_enabled() {
-        return is_enabled;
+    public boolean IsEnabled() {
+        return enabled;
     }
 
 }
