@@ -10,6 +10,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.multipart.MultipartResolver;
+
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,6 +29,11 @@ public class AppConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
                 return http.build();
+    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        return new org.springframework.web.multipart.support.StandardServletMultipartResolver();
     }
 
     private CorsConfigurationSource corsConfigurationSource()
