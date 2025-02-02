@@ -1,27 +1,13 @@
-/*
 package com.odin.Service;
 
 import com.odin.Model.User;
-import com.odin.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.odin.domain.VerificationType;
 
-import java.util.Optional;
+public interface UserService {
+    public User findUserByJwt(String jwt) throws Exception;
+    public User findUserByEmail(String email) throws Exception;
+    public User findUserById(Long userId) throws Exception;
 
-@Service
-public class UserService {
-
-    @Autowired
-    private UserRepository userRepository;
-
-
-    public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
+    public User enableTwoFactorAuth(VerificationType verificationType, String sendTo,  User user);
+    public User updatePassword(User user, String password);
 }
-*/

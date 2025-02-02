@@ -102,10 +102,7 @@ public class AuthController {
             }
 
             TwoFactorOTP newTwoFactorOTP =  twoFactorOTPService.createTwoFactorOtp(authUser,otp,jwt);
-            /*
-            * TODO:
-            *  Email service to send code for TFA
-            * */
+
             emailService.sendVerificationOtpEmail(username, otp);
 
 
@@ -141,10 +138,12 @@ public class AuthController {
 
 
     }
+    @PostMapping("/tow-factor/otp/{otp}")
     public ResponseEntity<AuthResponse> verifySignInOtp(
             @PathVariable String otp,
             @RequestParam String id) {
         TwoFactorOTP twoFactorOTP = twoFactorOTPService.findById(id);
+
         if (twoFactorOTPService.verifyTwoFactorOtp(twoFactorOTP, otp)){
             AuthResponse res = new AuthResponse();
             res.setMessage("Two factor authentication verified");
