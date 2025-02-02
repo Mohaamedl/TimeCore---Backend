@@ -22,7 +22,7 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
+/*    @Override
     public List<Event> importEventsFromPdf(MultipartFile file) throws Exception {
         // Create temp file
         File tempFile = File.createTempFile("schedule", ".pdf");
@@ -36,6 +36,30 @@ public class EventServiceImpl implements EventService {
         
         // Save events to database
         events.forEach(this::saveEvent);
+        
+        // Cleanup
+        tempFile.delete();
+        
+        return events;
+    }*/
+
+    @Override
+    public List<Event> importEventsFromPdf(MultipartFile file, User user) throws Exception {
+        // Create temp file
+        File tempFile = File.createTempFile("schedule", ".pdf");
+        file.transferTo(tempFile);
+
+        // Extract text from PDF
+        String pdfText = PDFImporter.readPdfText(tempFile.getPath());
+        
+        // Convert text to events
+        List<Event> events = Converter.convertScheduleToEvents(pdfText);
+        
+        // Associate events with user and save
+        events.forEach(event -> {
+            event.getUsers().add(user);
+            saveEvent(event);
+        });
         
         // Cleanup
         tempFile.delete();

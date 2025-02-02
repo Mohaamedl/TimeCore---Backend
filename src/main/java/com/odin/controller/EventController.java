@@ -35,11 +35,9 @@ public class EventController {
             @RequestParam("file") MultipartFile file,
             @RequestHeader("Authorization") String jwt) {
         try {
-            // Verify user
             User user = userService.findUserByJwt(jwt);
             
-            // Process PDF and save events
-            List<Event> events = eventService.importEventsFromPdf(file);
+            List<Event> events = eventService.importEventsFromPdf(file, user);
             
             return ResponseEntity.ok(events);
         } catch (Exception e) {
@@ -52,7 +50,6 @@ public class EventController {
     public ResponseEntity<List<Event>> getAllEvents(
             @RequestHeader("Authorization") String jwt) {
         try {
-            // Verify user
             userService.findUserByJwt(jwt);
             
             return ResponseEntity.ok(eventService.getAllEvents());
@@ -93,7 +90,7 @@ public class EventController {
             @PathVariable Long id,
             @RequestHeader("Authorization") String jwt) {
         try {
-            // Verify user
+
             userService.findUserByJwt(jwt);
             
             eventService.deleteEvent(id);
