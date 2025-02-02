@@ -2,11 +2,12 @@ package com.odin.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odin.domain.USER_ROLE;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "users2")
+@Table(name = "users")
 @Data
 public class User {
     @Id
@@ -24,6 +25,12 @@ public class User {
     private String password;
 
     @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "enabled",
+            column = @Column(name = "two_factor_auth_enabled", nullable = false)),
+        @AttributeOverride(name = "send_to",
+            column = @Column(name = "two_factor_auth_send_to"))
+    })
     private TwoFactorAuth twoFactorAuth = new TwoFactorAuth();
 
     @Enumerated(EnumType.STRING)
