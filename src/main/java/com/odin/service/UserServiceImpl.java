@@ -1,8 +1,8 @@
-package com.odin.Service;
+package com.odin.service;
 
-import com.odin.Model.TwoFactorAuth;
-import com.odin.Model.User;
-import com.odin.Repository.UserRepository;
+import com.odin.model.TwoFactorAuth;
+import com.odin.model.User;
+import com.odin.repository.UserRepository;
 import com.odin.config.JwtProvider;
 import com.odin.domain.VerificationType;
 import org.springframework.web.bind.annotation.RestController;

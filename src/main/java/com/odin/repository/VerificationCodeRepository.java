@@ -1,6 +1,6 @@
-package com.odin.Repository;
+package com.odin.repository;
 
-import com.odin.Model.VerificationCode;
+import com.odin.model.VerificationCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface VerificationCodeRepository extends JpaRepository<VerificationCode, Long> {

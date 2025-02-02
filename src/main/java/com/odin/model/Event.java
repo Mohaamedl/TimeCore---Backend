@@ -1,4 +1,4 @@
-package com.odin.Model;
+package com.odin.model;
 
 import java.time.LocalDateTime;
 

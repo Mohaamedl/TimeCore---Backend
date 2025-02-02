@@ -1,4 +1,4 @@
-package com.odin.Response;
+package com.odin.response;
 
 import lombok.Data;
 

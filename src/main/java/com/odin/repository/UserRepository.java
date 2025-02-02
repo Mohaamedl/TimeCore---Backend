@@ -1,6 +1,6 @@
-package com.odin.Repository;
+package com.odin.repository;
 
-import com.odin.Model.User;
+import com.odin.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

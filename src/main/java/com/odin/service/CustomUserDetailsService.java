@@ -1,7 +1,7 @@
-package com.odin.Service;
+package com.odin.service;
 
-import com.odin.Model.User;
-import com.odin.Repository.UserRepository;
+import com.odin.model.User;
+import com.odin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired

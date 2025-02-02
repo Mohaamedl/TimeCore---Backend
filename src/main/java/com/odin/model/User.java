@@ -1,7 +1,6 @@
-package com.odin.Model;
+package com.odin.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.Model.TwoFactorAuth;
 import com.odin.domain.USER_ROLE;
 import jakarta.persistence.*;
 import lombok.Data;
