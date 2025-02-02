@@ -121,6 +121,7 @@ public class AuthController {
 
             AuthResponse response = new AuthResponse();
             response.setMessage("2FA Required");
+            response.setStatus(true);
             response.setTwoFactorAuthEnabled(true);
             response.setSession(newOtp.getId());
 
@@ -161,7 +162,7 @@ public class AuthController {
             AuthResponse res = new AuthResponse();
             res.setMessage("Two factor authentication verified");
             res.setTwoFactorAuthEnabled(true);
-             res.setStatus(true);  
+            res.setStatus(true);
             res.setJwt(twoFactorOTP.getJwt());
             res.setSession(id);
 

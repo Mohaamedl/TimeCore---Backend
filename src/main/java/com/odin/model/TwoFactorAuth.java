@@ -17,7 +17,7 @@ public class TwoFactorAuth {
     private VerificationType send_to = VerificationType.EMAIL;
 
     @JsonProperty
-    private boolean enabled;
+    private boolean enabled = false;
     /**
      * TODO
      * Verify whys just default values for is_enable and send_to appear
