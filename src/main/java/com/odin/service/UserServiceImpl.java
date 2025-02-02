@@ -1,17 +1,23 @@
 package com.odin.service;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.odin.config.JwtProvider;
+import com.odin.domain.VerificationType;
 import com.odin.model.TwoFactorAuth;
 import com.odin.model.User;
 import com.odin.repository.UserRepository;
-import com.odin.config.JwtProvider;
-import com.odin.domain.VerificationType;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
-@RestController
+@Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -57,8 +63,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updatePassword(User user, String password) {
-        user.setPassword(password);
+    public User updateProfile(User user) {
+        User existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser != null && !existingUser.getId().equals(user.getId())) {
+            throw new RuntimeException("Email already in use");
+        }
         return userRepository.save(user);
     }
+
+    @Override
+    public User updatePassword(User user, String currentPassword, String newPassword) {
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new RuntimeException("Current password is incorrect");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User updatePassword(User user, String password) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
