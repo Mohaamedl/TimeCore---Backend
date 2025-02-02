@@ -1,12 +1,12 @@
-package com.odin.Controller;
+package com.odin.controller;
 
-import com.odin.Model.TwoFactorOTP;
-import com.odin.Model.User;
-import com.odin.Repository.UserRepository;
-import com.odin.Response.AuthResponse;
-import com.odin.Service.CustomUserDetailsService;
-import com.odin.Service.EmailService;
-import com.odin.Service.TwoFactorOTPService;
+import com.odin.model.TwoFactorOTP;
+import com.odin.model.User;
+import com.odin.repository.UserRepository;
+import com.odin.response.AuthResponse;
+import com.odin.service.CustomUserDetailsService;
+import com.odin.service.EmailService;
+import com.odin.service.TwoFactorOTPService;
 import com.odin.config.JwtProvider;
 import com.odin.util.OtpUtils;
 import org.springframework.beans.factory.annotation.Autowired;

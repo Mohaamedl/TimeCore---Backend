@@ -1,8 +1,8 @@
-package com.odin.Service;
+package com.odin.service;
 
-import com.odin.Model.TwoFactorOTP;
-import com.odin.Model.User;
-import com.odin.Repository.TwoFactorOtpRepository;
+import com.odin.model.TwoFactorOTP;
+import com.odin.model.User;
+import com.odin.repository.TwoFactorOtpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

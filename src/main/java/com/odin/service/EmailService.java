@@ -1,4 +1,4 @@
-package com.odin.Service;
+package com.odin.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

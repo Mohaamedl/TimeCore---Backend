@@ -1,6 +1,6 @@
-package com.odin.Repository;
+package com.odin.repository;
 
-import com.odin.Model.TwoFactorOTP;
+import com.odin.model.TwoFactorOTP;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TwoFactorOtpRepository extends JpaRepository<TwoFactorOTP, String> {

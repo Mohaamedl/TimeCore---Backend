@@ -1,6 +1,6 @@
-package com.odin.Service;
+package com.odin.service;
 
-import com.odin.Model.User;
+import com.odin.model.User;
 import com.odin.domain.VerificationType;
 
 public interface UserService {

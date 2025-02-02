@@ -1,8 +1,7 @@
-package com.odin.Service;
+package com.odin.service;
 
-import com.odin.Model.TwoFactorAuth;
-import com.odin.Model.TwoFactorOTP;
-import com.odin.Model.User;
+import com.odin.model.TwoFactorOTP;
+import com.odin.model.User;
 
 public interface TwoFactorOTPService {
     TwoFactorOTP createTwoFactorOtp (User user, String otp, String jwt);

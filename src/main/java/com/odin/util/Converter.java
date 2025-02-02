@@ -1,14 +1,15 @@
-package com.example.timecore.util;
+package com.odin.util;
 
-import com.example.timecore.model.Event;
+import com.odin.model.Event;
 
-import java.time.LocalDateTime;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 /**
  * Utility class for converting schedule text into Event objects.
  * Handles parsing of schedule information including UFCD codes, instructor details,

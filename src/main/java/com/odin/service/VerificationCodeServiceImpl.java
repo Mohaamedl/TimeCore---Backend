@@ -1,8 +1,8 @@
-package com.odin.Service;
+package com.odin.service;
 
-import com.odin.Model.User;
-import com.odin.Model.VerificationCode;
-import com.odin.Repository.VerificationCodeRepository;
+import com.odin.model.User;
+import com.odin.model.VerificationCode;
+import com.odin.repository.VerificationCodeRepository;
 import com.odin.domain.VerificationType;
 import com.odin.util.OtpUtils;
 import org.springframework.beans.factory.annotation.Autowired;

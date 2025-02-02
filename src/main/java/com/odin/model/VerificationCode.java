@@ -1,4 +1,4 @@
-package com.odin.Model;
+package com.odin.model;
 
 import com.odin.domain.VerificationType;
 import jakarta.persistence.*;

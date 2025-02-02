@@ -1,12 +1,11 @@
-package com.odin.Controller;
+package com.odin.controller;
 
 
-import com.odin.Model.User;
-import com.odin.Model.VerificationCode;
-import com.odin.Response.AuthResponse;
-import com.odin.Service.EmailService;
-import com.odin.Service.UserService;
-import com.odin.Service.VerificationCodeService;
+import com.odin.model.User;
+import com.odin.model.VerificationCode;
+import com.odin.service.EmailService;
+import com.odin.service.UserService;
+import com.odin.service.VerificationCodeService;
 import com.odin.domain.VerificationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

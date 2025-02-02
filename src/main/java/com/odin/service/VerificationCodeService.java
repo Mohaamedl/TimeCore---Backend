@@ -1,7 +1,7 @@
-package com.odin.Service;
+package com.odin.service;
 
-import com.odin.Model.User;
-import com.odin.Model.VerificationCode;
+import com.odin.model.User;
+import com.odin.model.VerificationCode;
 import com.odin.domain.VerificationType;
 
 public interface VerificationCodeService {
