@@ -21,6 +21,22 @@ public class Converter {
     
     private static final Map<String, Integer> MONTH_MAP = new HashMap<>();
 
+    private static final  Stack<String> WEEKDAYS =  new Stack<String>();
+
+
+    static {
+        WEEKDAYS.add("Segunda-feira");
+        WEEKDAYS.add("Terça-feira");
+        WEEKDAYS.add("Quarta-feira");
+        WEEKDAYS.add("Quinta-feira");
+        WEEKDAYS.add("Sexta-feira");
+        WEEKDAYS.add("Sábado");
+        WEEKDAYS.add("Domingo");
+    }
+
+
+
+
     static {
         MONTH_MAP.put("Janeiro", 1);
         MONTH_MAP.put("Fevereiro", 2);
@@ -35,6 +51,14 @@ public class Converter {
         MONTH_MAP.put("Novembro", 11);
         MONTH_MAP.put("Dezembro", 12);
     }
+
+    /**
+     * TODO 
+     * 
+     * Some dates are bieng parsed wrongly,
+     * Rerwite  this method
+     * 
+     */
     
     /**
      * Converts schedule text into a list of Event objects.
