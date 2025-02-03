@@ -2,6 +2,7 @@ package com.odin.service;
 
 import java.io.File;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,10 @@ import com.odin.repository.UserRepository;
 import com.odin.util.Converter;
 import com.odin.util.PDFImporter;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class EventServiceImpl implements EventService {
 
     @Autowired
@@ -22,49 +26,57 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private UserRepository userRepository;
 
-/*    @Override
-    public List<Event> importEventsFromPdf(MultipartFile file) throws Exception {
-        // Create temp file
-        File tempFile = File.createTempFile("schedule", ".pdf");
-        file.transferTo(tempFile);
-
-        // Extract text from PDF
-        String pdfText = PDFImporter.readPdfText(tempFile.getPath());
-        
-        // Convert text to events
-        List<Event> events = Converter.convertScheduleToEvents(pdfText);
-        
-        // Save events to database
-        events.forEach(this::saveEvent);
-        
-        // Cleanup
-        tempFile.delete();
-        
-        return events;
-    }*/
-
     @Override
     public List<Event> importEventsFromPdf(MultipartFile file, User user) throws Exception {
-        // Create temp file
-        File tempFile = File.createTempFile("schedule", ".pdf");
-        file.transferTo(tempFile);
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("PDF file is required");
+        }
 
-        // Extract text from PDF
-        String pdfText = PDFImporter.readPdfText(tempFile.getPath());
-        
-        // Convert text to events
-        List<Event> events = Converter.convertScheduleToEvents(pdfText);
-        
-        // Associate events with user and save
-        events.forEach(event -> {
-            event.getUsers().add(user);
-            saveEvent(event);
-        });
-        
-        // Cleanup
-        tempFile.delete();
-        
-        return events;
+        log.info("Processing PDF import for user: {}", user.getEmail());
+        File tempFile = null;
+
+        try {
+            // Create temp file
+            tempFile = File.createTempFile("schedule_", ".pdf");
+            file.transferTo(tempFile);
+            log.debug("Created temp file: {}", tempFile.getAbsolutePath());
+
+            // Read PDF text
+            String pdfText = PDFImporter.readPdfText(tempFile.getPath());
+            if (pdfText == null || pdfText.isEmpty()) {
+                throw new Exception("No text extracted from PDF");
+            }
+            log.debug("Extracted {} characters from PDF", pdfText.length());
+
+            // Convert to events
+            List<Event> events = Converter.convertScheduleToEvents(pdfText);
+            if (events.isEmpty()) {
+                throw new Exception("No events found in PDF");
+            }
+            log.info("Found {} events in PDF", events.size());
+
+            // Save events
+            List<Event> savedEvents = new ArrayList<>();
+            for (Event event : events) {
+                try {
+                    event.getUsers().add(user);
+                    savedEvents.add(saveEvent(event));
+                } catch (Exception e) {
+                    log.error("Error saving event: {}", e.getMessage());
+                }
+            }
+
+            log.info("Saved {} events for user {}", savedEvents.size(), user.getEmail());
+            return savedEvents;
+
+        } catch (Exception e) {
+            log.error("PDF import failed", e);
+            throw new Exception("PDF import failed: " + e.getMessage());
+        } finally {
+            if (tempFile != null && tempFile.exists()) {
+                tempFile.delete();
+            }
+        }
     }
 
     @Override
