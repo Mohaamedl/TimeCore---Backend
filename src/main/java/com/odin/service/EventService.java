@@ -14,4 +14,6 @@ public interface EventService {
     void deleteEvent(Long id);
     public List<Event> getEventsByUser(Long userId);
     public Event addUserToEvent(Long eventId, Long userId) throws Exception;
+    public List<Event>  importEventsFromCSV(String path);
+
 }

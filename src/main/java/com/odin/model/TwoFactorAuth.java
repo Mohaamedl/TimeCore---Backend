@@ -26,15 +26,15 @@ public class TwoFactorAuth {
      */
 
 
-    public void setIs_enabled(boolean enabled) {
+    public void setIsEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
-    public void setSend_to(VerificationType send_to) {
+    public void setSendTo(VerificationType send_to) {
         this.send_to = send_to;
     }
 
-    public VerificationType getSend_to() {
+    public VerificationType getSendTo() {
         return send_to;
     }
 

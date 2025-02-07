@@ -51,11 +51,18 @@ public class UserController {
 
     @PutMapping("/profile")
     public ResponseEntity<?> updateProfile(@RequestHeader("Authorization") String jwt,
-                                         @RequestBody User updatedUser) {
+                                           @RequestBody User updatedUser) {
         try {
             User user = userService.findUserByJwt(jwt);
             user.setFullname(updatedUser.getFullname());
-            user.setEmail(updatedUser.getEmail());
+            user.setMobile(updatedUser.getMobile());
+
+            // Update 2FA settings
+            if (updatedUser.getTwoFactorAuth() != null) {
+                user.getTwoFactorAuth().setEnabled(updatedUser.getTwoFactorAuth().isEnabled());
+                user.getTwoFactorAuth().setSendTo(updatedUser.getTwoFactorAuth().getSendTo());
+            }
+
             User saved = userService.updateProfile(user);
             return ResponseEntity.ok(saved);
         } catch (Exception e) {
@@ -76,7 +83,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/api/users/verification/{verificationType}/send-otp")
+    @PostMapping("/verification/{verificationType}/send-otp")
     public ResponseEntity<String> sendVerificationOtp(
             @RequestHeader("Authorization") String jwt,
             @PathVariable VerificationType verificationType) throws Exception
@@ -98,7 +105,7 @@ public class UserController {
         return new ResponseEntity<>("Verification code sent successfully", HttpStatus.OK);
     }
 
-    @PatchMapping("/api/users/enable-two-factor/verify-otp/{otp}")
+    @PatchMapping("/enable-two-factor/verify-otp/{otp}")
     public ResponseEntity<User> enableTwoFactorAuth(
             @RequestHeader("Authorization") String jwt,
             @PathVariable String otp

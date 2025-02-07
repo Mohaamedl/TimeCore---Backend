@@ -39,6 +39,10 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "mobile", nullable = true)
+    private String mobile;
+
+
     @Embedded
     @AttributeOverrides({
         @AttributeOverride(name = "enabled",
