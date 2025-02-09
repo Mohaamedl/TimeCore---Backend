@@ -27,9 +27,23 @@ import com.odin.service.EmailService;
 import com.odin.service.TwoFactorOTPService;
 import com.odin.util.OtpUtils;
 
+/**
+ * Controller handling authentication operations.
+ * Provides endpoints for user registration, login, and 2FA verification.
+ *
+ * @author TimeCore Team  
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    
+    /**
+     * Default constructor
+     */
+    public AuthController() {
+        // Default constructor
+    }
 
     @Autowired
     private UserRepository userRepository;
@@ -45,7 +59,14 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+ 
+    /**
+     * Registers a new user in the system.
+     *
+     * @param user User details for registration
+     * @return ResponseEntity with auth token and status
+     * @throws Exception if email already exists
+     */
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> register(@RequestBody User user) throws Exception {
         // Check if email exists
@@ -80,6 +101,14 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    /**
+     * Authenticates a user and generates JWT token.
+     *
+     * @param user Login credentials containing email and password
+     * @return ResponseEntity with auth token or 2FA challenge
+     * @throws BadCredentialsException if credentials are invalid
+     * @throws Exception if any other error occurs during authentication
+     */ 
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> login(@RequestBody User user) throws Exception {
         String email = user.getEmail();
@@ -106,7 +135,7 @@ public class AuthController {
         String token = JwtProvider.generateToken(auth);
 
         // Check 2FA
-        if (existingUser.getTwoFactorAuth().IsEnabled()) {
+        if (existingUser.getTwoFactorAuth().isEnabled()) {
             String otp = OtpUtils.generateOtp();
 
             // Delete old OTP if exists
@@ -152,6 +181,14 @@ public class AuthController {
 
     }
 
+    /**
+     * Verifies 2FA OTP code during sign in.
+     * 
+     * @param otp OTP code to verify
+     * @param id Session ID for verification
+     * @return ResponseEntity with auth token if verified
+     * @throws BadCredentialsException if OTP is invalid
+     */
     @PostMapping("/two-factor/otp/{otp}")
     public ResponseEntity<AuthResponse> verifySignInOtp(
             @PathVariable String otp,

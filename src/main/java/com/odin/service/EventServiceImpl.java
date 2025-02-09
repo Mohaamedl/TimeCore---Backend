@@ -17,9 +17,20 @@ import com.odin.util.PDFImporter;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Implementation of EventService interface.
+ * Provides business logic for event operations.
+ */
 @Service
 @Slf4j
 public class EventServiceImpl implements EventService {
+
+    /**
+     * Default constructor
+     */
+    public EventServiceImpl() {
+        // Default constructor
+    }
 
     @Autowired
     private EventRepository eventRepository;

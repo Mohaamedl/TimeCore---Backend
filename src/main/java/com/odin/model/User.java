@@ -21,9 +21,12 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+/**
+ * Represents a user in the system.
+ */
+@Data
 @Entity
 @Table(name = "users")
-@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,6 +53,7 @@ public class User {
         @AttributeOverride(name = "send_to",
             column = @Column(name = "two_factor_auth_send_to"))
     })
+
     private TwoFactorAuth twoFactorAuth = new TwoFactorAuth();
 
     @Enumerated(EnumType.STRING)
@@ -60,58 +64,134 @@ public class User {
     @JsonIgnore
     private Set<Event> events = new HashSet<>();
 
+    /**
+     * Default constructor.
+     */
+    public User() {
+    }
+
+    /**
+     * Sets the email address of the user.
+     *
+     * @param email The email address.
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Sets the full name of the user.
+     *
+     * @param fullname The full name.
+     */
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
 
+    /**
+     * Sets the ID of the user.
+     *
+     * @param id The ID.
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Sets the password of the user.
+     *
+     * @param password The password.
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Sets the role of the user.
+     *
+     * @param role The role.
+     */
     public void setRole(USER_ROLE role) {
         this.role = role;
     }
 
+    /**
+     * Sets the two-factor authentication settings for the user.
+     *
+     * @param twoFactorAuth The two-factor authentication settings.
+     */
     public void setTwoFactorAuth(TwoFactorAuth twoFactorAuth) {
         this.twoFactorAuth = twoFactorAuth;
     }
 
+    /**
+     * Gets the email address of the user.
+     *
+     * @return The email address.
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Gets the full name of the user.
+     *
+     * @return The full name.
+     */
     public String getFullname() {
         return fullname;
     }
 
+    /**
+     * Gets the ID of the user.
+     *
+     * @return The ID.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Gets the password of the user.
+     *
+     * @return The password.
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Gets the role of the user.
+     *
+     * @return The role.
+     */
     public USER_ROLE getRole() {
         return role;
     }
 
+    /**
+     * Gets the two-factor authentication settings for the user.
+     *
+     * @return The two-factor authentication settings.
+     */
     public TwoFactorAuth getTwoFactorAuth() {
         return twoFactorAuth;
     }
 
+    /**
+     * Gets the events associated with the user.
+     *
+     * @return The set of events.
+     */
     public Set<Event> getEvents() {
         return events;
     }
 
+    /**
+     * Sets the events associated with the user.
+     *
+     * @param events The set of events.
+     */
     public void setEvents(Set<Event> events) {
         this.events = events;
     }

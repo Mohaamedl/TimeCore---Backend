@@ -13,6 +13,9 @@ import com.odin.model.VerificationCode;
 import com.odin.repository.VerificationCodeRepository;
 import com.odin.util.OtpUtils;
 
+/**
+ * Implementation of the {@link VerificationCodeService} interface.
+ */
 @Service
 public class VerificationCodeServiceImpl implements VerificationCodeService {
 
@@ -20,6 +23,12 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
     private VerificationCodeRepository verificationCodeRepository;
 
     private final Queue<VerificationCode> pendingVerifications = new ConcurrentLinkedQueue<>();
+
+    /**
+     * Default constructor.
+     */
+    public VerificationCodeServiceImpl() {
+    }
 
     @Override
     public VerificationCode sendVerificationCode(User user, VerificationType verificationType) {

@@ -1,18 +1,28 @@
-/*
 package com.odin.model;
-
-import jakarta.persistence.*;
-import lombok.Data;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import lombok.Data;
 
+/**
+ * Represents a schedule entity.
+ */
 @Data
 @Entity
-@Table(name = "schedules")
-
+@Table(name = "schedules") 
 public class Schedule {
 
     @Id
@@ -22,16 +32,14 @@ public class Schedule {
     @Column(nullable = false)
     private String name;
 
-
-    @Column(nullable = true)
+    @Column(nullable = true) 
     private String description;
 
     @Column(nullable = false)
-    private Date criated_at;
+    private Date created_at;
 
     @Column(nullable = true)
     private Date updated_at;
-
 
     @Column(nullable = true)
     private String color;
@@ -42,53 +50,33 @@ public class Schedule {
     @Column(nullable = true)
     private String groupId;
 
-
     @ManyToMany
     @JoinTable(
-            name = "schedule_events",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "schedule_id")
+        name = "schedule_events",
+        joinColumns = @JoinColumn(name = "schedule_id"),
+        inverseJoinColumns = @JoinColumn(name = "event_id")
     )
+    private Set<Event> events = new HashSet<>();
 
-
-
-
-
-
-    public String getColor() {
-        return color;
+    /**
+     * Default constructor.
+     */
+    public Schedule() {
     }
 
-    public Date getCriated_at() {
-        return criated_at;
+    /**
+     * Method to be executed upon creation of the entity.
+     */
+    @PrePersist
+    protected void onCreate() {
+        created_at = new Date();
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getGroupId() {
-        return groupId;
-    }
-
-    public Date getUpdated_at() {
-        return updated_at;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
+    /**
+     * Method to be executed upon updating the entity.
+     */
+    @PreUpdate
+    protected void onUpdate() {
+        updated_at = new Date();
     }
 }
-*/

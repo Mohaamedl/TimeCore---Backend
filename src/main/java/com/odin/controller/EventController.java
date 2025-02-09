@@ -20,9 +20,20 @@ import com.odin.model.User;
 import com.odin.service.EventService;
 import com.odin.service.UserService;
 
+/**
+ * REST Controller for managing Event operations.
+ * Handles importing, retrieving, updating and deleting events.
+ */
 @RestController
 @RequestMapping("/api/events")
 public class EventController {
+
+    /**
+     * Default constructor
+     */
+    public EventController() {
+        // Default constructor
+    }
 
     @Autowired
     private EventService eventService;
@@ -30,6 +41,12 @@ public class EventController {
     @Autowired 
     private UserService userService;
 
+    /**
+     * Imports events from a PDF file
+     * @param file The PDF file containing event data
+     * @param jwt JWT authentication token
+     * @return ResponseEntity containing imported events or error message
+     */
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> importEventsFromPDF(
             @RequestParam("file") MultipartFile file,
@@ -46,6 +63,11 @@ public class EventController {
         }
     }
 
+    /**
+     * Retrieves all events in the system
+     * @param jwt JWT authentication token
+     * @return ResponseEntity containing list of all events
+     */
     @GetMapping
     public ResponseEntity<List<Event>> getAllEvents(
             @RequestHeader("Authorization") String jwt) {
@@ -58,6 +80,12 @@ public class EventController {
         }
     }
 
+    /**
+     * Retrieves all events for a specific user
+     * @param userId ID of the user to get events for
+     * @param jwt JWT authentication token
+     * @return ResponseEntity containing list of user's events
+     */
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Event>> getEventsByUser(
             @PathVariable Long userId,
@@ -71,6 +99,13 @@ public class EventController {
         }
     }
 
+    /**
+     * Adds a user to an existing event
+     * @param eventId ID of the event
+     * @param userId ID of the user to add
+     * @param jwt JWT authentication token
+     * @return ResponseEntity containing updated event or error message
+     */
     @PostMapping("/{eventId}/users/{userId}")
     public ResponseEntity<?> addUserToEvent(
             @PathVariable Long eventId,
@@ -85,6 +120,12 @@ public class EventController {
         }
     }
 
+    /**
+     * Deletes an event by ID
+     * @param id ID of event to delete
+     * @param jwt JWT authentication token
+     * @return ResponseEntity with success or error message
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEvent(
             @PathVariable Long id,
