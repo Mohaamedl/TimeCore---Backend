@@ -19,8 +19,16 @@ import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * A filter that validates JWT tokens in the request.
+ */
 public class JwtTokenValidator extends OncePerRequestFilter {
 
+    /**
+     * Default constructor.
+     */
+    public JwtTokenValidator() {
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

@@ -53,9 +53,16 @@ public class Converter {
     }
 
     /**
+     * Private constructor to prevent instantiation
+     */
+    private Converter() {
+        // Utility class, no instantiation
+    }
+
+    /**
      * TODO 
      * 
-     * Some dates are bieng parsed wrongly,
+     * Some dates are not bieng parsed correctly,
      * Rerwite  this method
      * 
      */
@@ -212,7 +219,7 @@ public class Converter {
             startDateTime,
             endDateTime,
             "Centro de Emprego e Formação Profissional do Porto",
-            "Formador(a): " + instructorName + " - Numero: " + instructorCode,
+            "Instructor(a): " + instructorName + " - Number: " + instructorCode,
             UUID.randomUUID().toString()
         );
     }
@@ -261,7 +268,8 @@ public class Converter {
     }
 
     /**
-     * Example of use
+     * Main method for testing converter functionality
+     * @param args command line arguments (not used)
      */
     public static void main(String[] args) {
         try {

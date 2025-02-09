@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+/**
+ * Configuration class for setting up mail-related beans.
+ */
 @Configuration
 public class MailConfig {
 
@@ -21,6 +24,17 @@ public class MailConfig {
     @Value("${spring.mail.password}")
     private String password;
 
+    /**
+     * Default constructor.
+     */
+    public MailConfig() {
+    }
+
+    /**
+     * Configures and returns a JavaMailSender bean.
+     *
+     * @return JavaMailSender instance.
+     */
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
