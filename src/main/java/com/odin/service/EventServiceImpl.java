@@ -1,8 +1,8 @@
 package com.odin.service;
 
 import java.io.File;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,20 @@ import com.odin.util.PDFImporter;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Implementation of EventService interface.
+ * Provides business logic for event operations.
+ */
 @Service
 @Slf4j
 public class EventServiceImpl implements EventService {
+
+    /**
+     * Default constructor
+     */
+    public EventServiceImpl() {
+        // Default constructor
+    }
 
     @Autowired
     private EventRepository eventRepository;
@@ -109,5 +120,10 @@ public class EventServiceImpl implements EventService {
             
         event.getUsers().add(user);
         return eventRepository.save(event);
+    }
+
+    @Override
+    public List<Event> importEventsFromCSV(String path) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

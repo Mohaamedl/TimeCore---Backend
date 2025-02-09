@@ -1,52 +1,64 @@
 package com.odin.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odin.domain.VerificationType;
-import jakarta.persistence.Embeddable;
+
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Data;
 
-@Embeddable
+/**
+ * Represents two-factor authentication settings for a user.
+ * This is an embeddable class used within User entity.
+ */
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TwoFactorAuth {
-    @Enumerated(EnumType.STRING)
-    @JsonProperty("send_to")
-    private VerificationType send_to = VerificationType.EMAIL;
 
-    @JsonProperty
     private boolean enabled = false;
+
+    @Enumerated(EnumType.STRING)
+    private VerificationType sendTo = VerificationType.EMAIL;
+
     /**
-     * TODO
-     * Verify whys just default values for is_enable and send_to appear
-     * in the database
-     *
+     * Default constructor.
      */
-
-
-    public void setIs_enabled(boolean enabled) {
-        this.enabled = enabled;
+    public TwoFactorAuth() {
+        enabled = false;
+        sendTo = VerificationType.EMAIL;
     }
 
-    public void setSend_to(VerificationType send_to) {
-        this.send_to = send_to;
-    }
-
-    public VerificationType getSend_to() {
-        return send_to;
-    }
-
-    public boolean IsEnabled() {
+    /**
+     * Checks if two-factor authentication is enabled.
+     *
+     * @return True if enabled, false otherwise.
+     */
+    public boolean isEnabled() {
         return enabled;
     }
 
+    /**
+     * Sets whether two-factor authentication is enabled.
+     *
+     * @param enabled True to enable, false to disable.
+     */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    /**
+     * Gets the send-to destination for two-factor authentication.
+     *
+     * @return The send-to destination.
+     */
+    public VerificationType getSendTo() {
+        return sendTo;
+    }
+
+    /**
+     * Sets the send-to destination for two-factor authentication.
+     *
+     * @param sendTo The send-to destination.
+     */
+    public void setSendTo(VerificationType sendTo) {
+        this.sendTo = sendTo;
     }
 }

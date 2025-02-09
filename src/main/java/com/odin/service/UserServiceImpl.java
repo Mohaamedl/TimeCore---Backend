@@ -12,6 +12,9 @@ import com.odin.model.TwoFactorAuth;
 import com.odin.model.User;
 import com.odin.repository.UserRepository;
 
+/**
+ * Implementation of the UserService interface.
+ */
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -19,6 +22,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Constructs a new UserServiceImpl with the provided UserRepository.
+     *
+     * @param userRepository the repository for User entities
+     */
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -57,7 +65,7 @@ public class UserServiceImpl implements UserService {
     public User enableTwoFactorAuth(VerificationType verificationType, String sendTo, User user) {
         TwoFactorAuth twoFactorAuth = new TwoFactorAuth();
         twoFactorAuth.setEnabled(true);
-        twoFactorAuth.setSend_to(verificationType);
+        twoFactorAuth.setSendTo(verificationType);
         user.setTwoFactorAuth(twoFactorAuth);
         return userRepository.save(user);
     }

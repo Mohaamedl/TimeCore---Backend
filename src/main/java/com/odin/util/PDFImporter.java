@@ -1,9 +1,5 @@
 package com.odin.util;
 
-import org.apache.pdfbox.Loader;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,8 +9,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+
 /**
- * Utility class for importing and reading text from PDF files.
+ * Utility class for importing data from PDF files.
  */
 public class PDFImporter {
     
@@ -26,6 +26,17 @@ public class PDFImporter {
         Logger.getLogger("org.apache.fontbox").setLevel(Level.SEVERE);
     }
 
+    /**
+     * Default constructor.
+     */
+    public PDFImporter() {
+    }
+
+    /**
+     * Main method for testing PDF import functionality.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         try {
 
@@ -145,11 +156,11 @@ public class PDFImporter {
     }
 
     /**
+     * Reads a PDF from the resources directory.
      *
-     *
-     * @param pdfName Nome do arquivo PDF no diretório pdfs/
-     * @return String contendo o texto do PDF
-     * @throws IOException se houver erro ao ler o arquivo
+     * @param pdfName Name of the PDF file in the pdfs/ directory
+     * @return String containing the text of the PDF
+     * @throws IOException if there's an error reading the file
      */
     public static String readPdfFromResources(String pdfName) throws IOException {
         try {
@@ -171,14 +182,14 @@ public class PDFImporter {
                 return readPdfText(currentPath.toString());
             }
 
-            throw new IOException("PDF não encontrado: " + pdfName + 
-                "\nCaminhos tentados:\n" +
+            throw new IOException("PDF not found: " + pdfName + 
+                "\npaths  tested:\n" +
                 "- classpath:pdfs/" + pdfName + "\n" +
                 "- " + resourcePath + "\n" +
                 "- " + currentPath.toAbsolutePath());
             
         } catch (Exception e) {
-            throw new IOException("Erro ao ler PDF: " + e.getMessage(), e);
+            throw new IOException("Error reading PDF: " + e.getMessage(), e);
         }
     }
 }

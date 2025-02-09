@@ -1,56 +1,112 @@
 package com.odin.model;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
 
-@Entity
+/**
+ * Represents a two-factor OTP (One-Time Password).
+ */
 @Data
+@Entity
+@Table(name = "two_factor_otps")
 public class TwoFactorOTP {
-    @Id
-    private String id;
-    
-    private String otp;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToOne
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(nullable = false)
+    private String otp;
+
+    @Column(nullable = false)
     private String jwt;
 
-    public void setUser(User user) {
-        this.user = user;
+    /**
+     * Default constructor.
+     */
+    public TwoFactorOTP() {
     }
 
+    /**
+     * Gets the associated user.
+     *
+     * @return The user.
+     */
     public User getUser() {
         return user;
     }
 
-    public void setOtp(String otp) {
-        this.otp = otp;
+    /**
+     * Sets the associated user.
+     *
+     * @param user The user.
+     */
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setJwt(String jwt) {
-        this.jwt = jwt;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
+    /**
+     * Gets the OTP.
+     *
+     * @return The OTP.
+     */
     public String getOtp() {
         return otp;
     }
 
+    /**
+     * Sets the OTP.
+     *
+     * @param otp The OTP.
+     */
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
+
+    /**
+     * Gets the JWT.
+     *
+     * @return The JWT.
+     */
     public String getJwt() {
         return jwt;
     }
 
+    /**
+     * Sets the JWT.
+     *
+     * @param jwt The JWT.
+     */
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
+    }
+
+    /**
+     * Gets the ID.
+     *
+     * @return The ID.
+     */
     public String getId() {
         return id;
+    }
+
+    /**
+     * Sets the ID.
+     *
+     * @param id The ID.
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 }

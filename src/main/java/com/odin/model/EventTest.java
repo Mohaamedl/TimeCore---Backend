@@ -2,8 +2,23 @@ package com.odin.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Test class for Event functionality.
+ * Demonstrates creation and formatting of events.
+ */
 public class EventTest {
 
+    /**
+     * Default constructor
+     */
+    public EventTest() {
+        // Default constructor
+    }
+
+    /**
+     * Main method for testing Event class functionality
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
 
         Event event = new Event(
