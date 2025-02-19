@@ -196,7 +196,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     public Schedule importScheduleFromFile(MultipartFile file, String name, User user) throws Exception {
         // Check if schedule with same name exists for user
         List<Schedule> existingSchedules = scheduleRepository.findByUserIdAndName(
-            user.getId().toString(), 
+            user.getId().toString(),
             name
         );
         

@@ -6,6 +6,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Data;
 
+import java.util.Objects;
+
 /**
  * Represents two-factor authentication settings for a user.
  * This is an embeddable class used within User entity.
@@ -60,5 +62,16 @@ public class TwoFactorAuth {
      */
     public void setSendTo(VerificationType sendTo) {
         this.sendTo = sendTo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof TwoFactorAuth that)) return false;
+        return enabled == that.enabled && sendTo == that.sendTo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(enabled, sendTo);
     }
 }

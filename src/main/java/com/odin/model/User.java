@@ -1,6 +1,7 @@
 package com.odin.model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,7 +28,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Comparable<User>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -194,5 +195,28 @@ public class User {
      */
     public void setEvents(Set<Event> events) {
         this.events = events;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof User user)) return false;
+        return Objects.equals(id, user.id) && Objects.equals(fullname, user.fullname) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(mobile, user.mobile) && Objects.equals(twoFactorAuth, user.twoFactorAuth) && role == user.role && Objects.equals(events, user.events);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fullname, email, password, mobile, twoFactorAuth, role, events);
+    }
+
+
+    /**
+     * @param o the object to be compared. 
+     * @return
+     */
+    @Override
+    public int compareTo(User o) {
+        if (o.equals(this))
+            return 0;
+        return this.fullname.compareTo(o.fullname);
     }
 }
