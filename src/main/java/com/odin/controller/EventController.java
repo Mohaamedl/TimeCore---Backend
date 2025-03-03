@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.odin.model.Event;
 import com.odin.model.User;
-import com.odin.service.EventService;
-import com.odin.service.UserService;
+import com.odin.service.interfaces.EventService;
+import com.odin.service.interfaces.UserService;
 
 /**
  * REST Controller for managing Event operations.

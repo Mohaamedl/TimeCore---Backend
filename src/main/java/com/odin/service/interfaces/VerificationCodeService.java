@@ -1,4 +1,4 @@
-package com.odin.service;
+package com.odin.service.interfaces;
 
 import com.odin.domain.VerificationType;
 import com.odin.model.User;

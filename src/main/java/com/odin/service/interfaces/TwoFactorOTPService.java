@@ -1,4 +1,4 @@
-package com.odin.service;
+package com.odin.service.interfaces;
 
 import com.odin.model.TwoFactorOTP;
 import com.odin.model.User;

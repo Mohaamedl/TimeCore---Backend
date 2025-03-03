@@ -33,6 +33,7 @@ public class TimecoreApplication {
         System.setProperty("DB_MYSQL_USERNAME", dotenv.get("DB_MYSQL_USERNAME"));
         System.setProperty("DB_MYSQL_PASSWORD", dotenv.get("DB_MYSQL_PASSWORD"));
         System.setProperty("JWT_SECRET_KEY", dotenv.get("JWT_SECRET_KEY"));
+        System.setProperty("OPEN_AI_API_KEY", dotenv.get("OPEN_AI_API_KEY"));
         SpringApplication.run(TimecoreApplication.class, args);
     }
 }

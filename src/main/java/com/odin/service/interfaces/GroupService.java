@@ -1,4 +1,4 @@
-package com.odin.service;
+package com.odin.service.interfaces;
 
 /**
  * Service interface for managing group operations.
