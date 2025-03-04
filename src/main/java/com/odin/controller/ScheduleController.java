@@ -22,8 +22,8 @@ import com.odin.exception.DuplicateScheduleException;
 import com.odin.model.Event;
 import com.odin.model.Schedule;
 import com.odin.model.User;
-import com.odin.service.ScheduleService;
-import com.odin.service.UserService;
+import com.odin.service.interfaces.ScheduleService;
+import com.odin.service.interfaces.UserService;
 
 /**
  * Controller responsible for managing schedules in the TimeCore application.

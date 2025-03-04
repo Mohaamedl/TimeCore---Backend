@@ -1,4 +1,4 @@
-/*
+
 package com.odin.model;
 
 
@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -21,9 +22,18 @@ public class Group {
 
     private String name;
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Group group)) return false;
+        return Objects.equals(id, group.id) && Objects.equals(name, group.name);
+    }
 
-    //private Set<Schedule> schedules= new HashSet<>();
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 
+//private Set<Schedule> schedules= new HashSet<>();
 
     public void setId(Long id) {
         this.id = id;
@@ -32,5 +42,7 @@ public class Group {
     public Long getId() {
         return id;
     }
+
+
 }
-*/
+

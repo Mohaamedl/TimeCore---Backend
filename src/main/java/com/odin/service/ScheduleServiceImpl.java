@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.odin.service.interfaces.EventService;
+import com.odin.service.interfaces.ScheduleService;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -196,7 +198,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     public Schedule importScheduleFromFile(MultipartFile file, String name, User user) throws Exception {
         // Check if schedule with same name exists for user
         List<Schedule> existingSchedules = scheduleRepository.findByUserIdAndName(
-            user.getId().toString(), 
+            user.getId().toString(),
             name
         );
         
