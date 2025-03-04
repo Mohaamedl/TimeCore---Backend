@@ -1,5 +1,6 @@
 package com.odin.service;
 
+import com.odin.service.interfaces.TwoFactorOTPService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

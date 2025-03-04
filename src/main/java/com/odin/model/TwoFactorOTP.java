@@ -10,6 +10,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.util.Objects;
+
 /**
  * Represents a two-factor OTP (One-Time Password).
  */
@@ -109,4 +111,28 @@ public class TwoFactorOTP {
     public void setId(String id) {
         this.id = id;
     }
+
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (!(o  instanceof TwoFactorOTP))
+            return false;
+        TwoFactorOTP other = (TwoFactorOTP) o;
+        return (Objects.equals(other.id,this.id) && Objects.equals(other.otp, this.otp) &&
+                Objects.equals(other.jwt,this.jwt));
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int prime =  31;
+        int result = prime;
+        result += prime * result + (this.id == null ? 0 : this.id.hashCode());
+        result += prime * result + (this.otp == null ? 0 : this.otp.hashCode());
+        result += prime * result + (this.jwt == null ? 0: this.jwt.hashCode());
+        return result;
+    }
+
+
 }

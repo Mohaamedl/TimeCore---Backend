@@ -24,7 +24,7 @@ import com.odin.repository.UserRepository;
 import com.odin.response.AuthResponse;
 import com.odin.service.CustomUserDetailsService;
 import com.odin.service.EmailService;
-import com.odin.service.TwoFactorOTPService;
+import com.odin.service.interfaces.TwoFactorOTPService;
 import com.odin.util.OtpUtils;
 
 /**

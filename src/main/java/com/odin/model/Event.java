@@ -1,9 +1,11 @@
 package com.odin.model;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -27,7 +29,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Table(name = "events")
-public class Event {
+public class Event  implements Comparable<Event>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -243,5 +245,65 @@ public class Event {
      */
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof  Event))
+            return false;
+        Event other = (Event) obj;
+        return other.id.equals(this.id) && other.createdAt.equals(this.createdAt)
+                && other.description.equals(this.description) && other.endDateTime.equals(this.endDateTime)
+                && other.location.equals(this.location) && other.summary.equals(this.summary) && other.uid.equals(this.uid);
+    }
+    /**
+     * returns the hashcode
+     * @return int
+     * */
+    @Override
+    public int hashCode()
+    {
+        int PRIME = 31;
+        int result =  PRIME;
+        result = PRIME * result + (this.id == null ?  0 :  PRIME * this.id.hashCode());
+        result = PRIME * result + (this.createdAt == null ?  0 :  PRIME * this.createdAt.hashCode());
+        result = PRIME * result + (this.description == null ? 0 :  PRIME * this.description.hashCode());
+        result = PRIME * result + (this.endDateTime == null ? 0 :  PRIME * this.endDateTime.hashCode());
+        result = PRIME * result + (this.location == null ? 0 :  PRIME * this.location.hashCode());
+        result = PRIME * result + (this.summary == null ? 0 :  PRIME * this.summary.hashCode());
+        result = PRIME * result + (this.uid == null ?  0 :  PRIME * this.uid.hashCode());
+        result = PRIME * result + (this.users == null ? 0 :  PRIME * this.users.hashCode());
+        result = PRIME * result + (this.startDateTime == null ? 0 :  PRIME * this.startDateTime.hashCode());
+        result = PRIME * result + (this.updatedAt == null ? 0 :  PRIME * this.updatedAt.hashCode());
+        return result;
+    }
+
+    /**
+     * @param o the object to be compared. 
+     * @return int
+     */
+    @Override
+    public int compareTo(Event o) {
+        int result;
+        if (this.equals(o)) {
+            return 0;
+        }
+        if (this.startDateTime.isBefore(o.startDateTime)) {
+            result = -1;
+        }
+        else {
+            result = 1;
+        }
+        return result;
+    }
+
+
+    public static void main(String[] args) {
+        Set<Event> listEvents =  new HashSet<Event>();
+
+
     }
 }

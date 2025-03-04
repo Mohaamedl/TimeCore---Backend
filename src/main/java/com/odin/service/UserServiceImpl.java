@@ -2,6 +2,7 @@ package com.odin.service;
 
 import java.util.Optional;
 
+import com.odin.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

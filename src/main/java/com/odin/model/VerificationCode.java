@@ -10,6 +10,8 @@ import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 /**
  * Represents a verification code for user authentication.
  */
@@ -158,4 +160,30 @@ public class VerificationCode {
     public VerificationType getVerificationType() {
         return verificationType;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (!(o instanceof VerificationCode))
+            return false;
+        VerificationCode other = (VerificationCode) o;
+        return Objects.equals(other.id, this.id) && Objects.equals(this.email, other.email) &&
+                Objects.equals(other.otp, this.otp) && Objects.equals(other.user,this.user) &&
+                Objects.equals(other.mobile, this.mobile) && Objects.equals(other.verificationType, this.verificationType);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int prime =  31;
+        int result = prime;
+        result += result *  prime + (this.id == null ? 0 : this.id.hashCode());
+        result += result *  prime + (this.otp == null ? 0 : this.otp.hashCode());
+        result += result *  prime + (this.email == null ? 0 : this.email.hashCode());
+        result += result *  prime + (this.mobile == null ? 0 : this.mobile.hashCode());
+        result += result *  prime + (this.verificationType == null ? 0 : this.verificationType.hashCode());
+        return result;
+    }
+
+
 }

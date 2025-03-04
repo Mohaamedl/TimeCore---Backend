@@ -19,8 +19,8 @@ import com.odin.dto.PasswordUpdateRequest;
 import com.odin.model.User;
 import com.odin.model.VerificationCode;
 import com.odin.service.EmailService;
-import com.odin.service.UserService;
-import com.odin.service.VerificationCodeService;
+import com.odin.service.interfaces.UserService;
+import com.odin.service.interfaces.VerificationCodeService;
 
 /**
  * REST controller for user-related operations.
